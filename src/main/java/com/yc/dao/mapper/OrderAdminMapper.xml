@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.dao.mapper.OrderAdminMapper">
+	
+	<!-- 使用默认mybatis ：   二级缓存 -->
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"  />
+	
+	<resultMap type="OrderAdmin" id="orderAdminMap">
+		<id property="oaid" column="oaid" />
+		<result property="hid" column="hid" />
+		<result property="hindate" column="hindate" />
+		<result property="houtdate" column="houtdate" />
+		<result property="ocondition" column="ocondition" />
+
+		<association property="fk"  javaType="User">
+			<id property="uid" column="uid" />
+			<result property="uname" column="uname" />
+			<result property="usex" column="usex" />
+			<result property="uidcard" column="uidcard" />
+			<result property="utel" column="utel" />
+			<result property="uaccount" column="uaccount" />
+			<result property="isfkorfd" column="isfkorfd" />
+			<result property="regdate" column="regdate" />
+		</association>
+		
+		<association property="house"  javaType="House">
+			<id property="hid" column="hid" />
+			<result property="pzid" column="pzid" />
+			<result property="addrid" column="addrid" />
+			<result property="hname" column="hname" />
+			<result property="uid" column="uid" />
+			<result property="hprice" column="hprice" />
+			<result property="hpubdate" column="hpubdate" />
+			<result property="hdescription" column="hdescription" />
+			<result property="hpic" column="hpic" />
+			<result property="hfloorage" column="hfloorage" />
+			<result property="hsum" column="hsum" />
+			
+			<association property="user"  javaType="User">
+				<id property="uid" column="uid" />
+				<result property="uname" column="uname" />
+				<result property="usex" column="usex" />
+				<result property="uidcard" column="uidcard" />
+				<result property="utel" column="utel" />
+				<result property="uaccount" column="uaccount" />
+				<result property="isfkorfd" column="isfkorfd" />
+				<result property="regdate" column="regdate" />
+			</association>
+		</association>
+		
+	</resultMap>
+	<resultMap type="OrderAdmin" id="orderAdminMap1">
+		<id property="oaid" column="oaid" />
+		<result property="hid" column="hid" />
+		<result property="hindate" column="hindate" />
+		<result property="houtdate" column="houtdate" />
+		<result property="ocondition" column="ocondition" />
+
+		<association property="house"  javaType="House">
+			<id property="hid" column="hid" />
+			<result property="pzid" column="pzid" />
+			<result property="addrid" column="addrid" />
+			<result property="hname" column="hname" />
+			<result property="uid" column="uid" />
+			<result property="hprice" column="hprice" />
+			<result property="hpubdate" column="hpubdate" />
+			<result property="hdescription" column="hdescription" />
+			<result property="hpic" column="hpic" />
+			<result property="hfloorage" column="hfloorage" />
+			<result property="hsum" column="hsum" />
+			
+			<association property="user"  javaType="User">
+				<id property="uid" column="uid" />
+				<result property="uname" column="uname" />
+				<result property="usex" column="usex" />
+				<result property="uidcard" column="uidcard" />
+				<result property="utel" column="utel" />
+				<result property="uaccount" column="uaccount" />
+				<result property="isfkorfd" column="isfkorfd" />
+				<result property="regdate" column="regdate" />
+			</association>
+		</association>
+		
+	</resultMap>
+	<resultMap type="OrderAdmin" id="orderAdminMap2">
+		<id property="oaid" column="oaid" />
+		<result property="hid" column="hid" />
+		<result property="hindate" column="hindate" />
+		<result property="houtdate" column="houtdate" />
+		<result property="ocondition" column="ocondition" />
+
+		<association property="fk"  javaType="User">
+			<id property="uid" column="uid" />
+			<result property="uname" column="uname" />
+			<result property="usex" column="usex" />
+			<result property="uidcard" column="uidcard" />
+			<result property="utel" column="utel" />
+			<result property="uaccount" column="uaccount" />
+			<result property="isfkorfd" column="isfkorfd" />
+			<result property="regdate" column="regdate" />
+		</association>
+		
+		<association property="house"  javaType="House">
+			<id property="hid" column="hid" />
+			<result property="pzid" column="pzid" />
+			<result property="addrid" column="addrid" />
+			<result property="hname" column="hname" />
+			<result property="uid" column="uid" />
+			<result property="hprice" column="hprice" />
+			<result property="hpubdate" column="hpubdate" />
+			<result property="hdescription" column="hdescription" />
+			<result property="hpic" column="hpic" />
+			<result property="hfloorage" column="hfloorage" />
+			<result property="hsum" column="hsum" />
+			
+		</association>
+		
+	</resultMap>
+	
+	
+ 	<select id="getFdOrderInfo" resultMap="orderAdminMap1">
+		select oaid,orderadmin.hid,hindate,houtdate,ocondition,
+			house.hid,house.pzid,house.addrid,house.hname,house.uid,house.hprice,house.hpubdate,house.hdescription,house.hpic,house.hfloorage,house.hsum,
+			users.uid,users.uname,users.usex,users.uidcard,users.utel,users.uaccount,users.isfkorfd,users.regdate
+ 		from orderadmin 
+ 		left join house on orderadmin.hid = house.hid
+ 		left join users  on house.uid = users.uid 
+	</select>
+	
+	<select id="getFkOrderInfo" resultMap="orderAdminMap2">
+		select oaid,orderadmin.hid,hindate,houtdate,ocondition,
+			users.uid,users.uname,users.usex,users.uidcard,users.utel,users.uaccount,users.isfkorfd,users.regdate,
+				house.hid,house.pzid,house.addrid,house.hname,house.uid,house.hprice,house.hpubdate,house.hdescription,house.hpic,house.hfloorage,house.hsum
+ 		from orderadmin 
+ 		left join users  on orderadmin.uid = users.uid 
+ 		left join house on orderadmin.hid = house.hid
+ 		
+	</select>
+	
+	
+	<!-- <select id="getOrderAllInfo" resultMap="orderAdminMap">
+		select oaid,orderadmin.hid,hindate,houtdate,ocondition,
+			u1.uid,u1.uname,u1.usex,u1.uidcard,u1.utel,u1.uaccount,u1.isfkorfd,u1.regdate,
+				house.hid,house.pzid,house.addrid,house.hname,house.uid,house.hprice,house.hpubdate,house.hdescription,house.hpic,house.hfloorage,house.hsum,
+						u2.uid,u2.uname,u2.usex,u2.uidcard,u2.utel,u2.uaccount,u2.isfkorfd,u2.regdate
+ 		from orderadmin 
+ 		left join users u1 on orderadmin.uid = u1.uid
+ 		left join house on orderadmin.hid = house.hid
+ 		left join users u2 on house.uid = u2.uid where oaid=1
+	</select> -->
+	<!-- 排序条件拼接 -->
+	<sql id="orderSql">
+		<if test="orderby!=null">
+			order by #{orderby}
+			<if test="orderway!=null">
+				#{orderway}
+			</if>
+		</if>
+	</sql>
+	
+	<!-- 分页条件的拼接 -->
+	<sql id="pageSql">
+		<if test="start!=null  ">
+			limit #{start},#{pagesize}
+		</if>
+	</sql>
+	
+	<!-- 各种查询条件的拼接 -->
+	<sql id="conditionSql">
+		from orderadmin
+		<where>
+			<if test="uid  !=null and uid!='' ">
+				uid=#{uid}
+			</if>
+			<if test="hid!=null and hid!=''">
+			 	and hid=#{hid}
+			</if>
+			<if test="hindate !=null and hindate!=null ">
+				and hindate=#{hindate}
+			</if>
+			<if test="houtdate  !=null and houtdate!='' ">
+				and houtdate=#{houtdate}
+			</if>
+			<if test="ocondition!= null and  ocondition !='' ">
+				and ocondition=#{ocondition}
+			</if>
+			<if test="oaid != null  ">
+				and oaid=#{oaid}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 查所有订单   分页 -->
+	<select id="getOrderByPages" parameterType="java.util.Map" resultType="OrderAdmin">
+		select * <include refid="conditionSql"/> <include refid="orderSql"/>  <include refid="pageSql"/>
+	</select>
+	
+	<!-- 查看有几个订单 -->
+	<select id="getCount" resultType="int">
+		select count(1) from orderadmin
+	</select>
+	
+	
+	<!-- 查 所有订单 -->
+	<select id="findAllOrder" resultType="OrderAdmin">
+ 		select * from orderadmin 
+ 	</select>
+ 
+	<!--  根据订单id 查看订单 public OrderAdmin findOrder(int oaid);-->
+ 	<select id="findOrderByoaid" resultType="OrderAdmin" parameterType="int">
+ 		select * from orderadmin where oaid = #{oaid} 
+ 	</select>
+ 
+	<!-- 添加订单 -->
+	<insert id="saveOrder"  parameterType="OrderAdmin" keyProperty="oaid" useGeneratedKeys="true">
+		insert into orderadmin(uid,hid,hindate,houtdate,ocondition) values
+		(uid=#{uid},hid=#{hid},hindate=#{hindate},houtdate=#{houtdate},ocondition=#{ocondition})
+	</insert>
+	
+ <insert id="addOrderAdmin" parameterType="OrderAdmin" useGeneratedKeys="true" keyProperty="oaid">
+		insert into orderadmin(uid,hid,hindate,houtdate,ocondition,money) values(#{uid},#{hid},#{hindate},#{houtdate},#{ocondition},#{money})
+		 
+	</insert>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.yc.dao.mapper.AddrMapper">
+
+		<!-- 添加addr信息 -->
+		<insert id="saveAddr" parameterType="Addr" useGeneratedKeys="true" keyProperty="addrid">
+				insert into addr( province,city,town,xxaddr,doornumber)
+                  values( #{province},#{city},#{town},#{xxaddr},#{doornumber});
+		</insert>
+		
+		<select id="getAllAddr" resultType="Addr">
+				select * from addr  
+		</select>
+		
+		
+		<!-- 根据id查找 -->
+		<select id="getAddr" resultType="Addr">
+				select * from addr  where addrid =#{addrid}
+		</select>
+		
+		
+		<!-- 更新Addr信息 -->
+		<update id="updateAddr" parameterType="Addr">
+				update addr set 
+				province=#{province},
+				city=#{city},
+				town=#{town},
+				xxaddr=#{xxaddr},
+				doornumber=#{doornumber}
+				where addrid=#{addrid}
+		</update>
+		
+		<!-- 根据id删除单条信息 -->
+		<delete id="delSingleAddr">
+				delete from addr where addrid=#{addrid}
+		</delete>
+</mapper>

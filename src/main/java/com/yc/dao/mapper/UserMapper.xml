@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.dao.mapper.UserMapper">
+<!-- 	
+	uid int primary key auto_increment,
+	uname  varchar(20),
+	upassword varchar(40),
+	usex varchar(2) default '男'check(fksex in('男','女')),
+	uidcard varchar(18) unique,
+	utel varchar(11),
+	uaccount varchar(50),
+	isfkorfd int
+	 -->
+	<!-- 查是否用户存在 -->
+	<select id="isUsersExist" resultType="Integer" parameterType="User">
+		select count(1) from users where uname=#{uname}
+	</select>
+
+	<!-- 根据用户名和密码查询用户 -->
+	<select id="getUsersByLogin" resultType="User" parameterType="User">
+		select * from users where (uname=#{uname} or utel=#{utel}) and upassword=#{upassword}
+	</select>
+	
+	<!-- 根据id查询用户 -->
+	<select id="getUsers" resultType="User" parameterType="User">
+		select * from users where uid=#{uid}
+	</select>
+		<!-- 查询所有用户为房东的 -->
+	<select id="getfangdong" resultType="User" parameterType="User">
+		select * from users where isfkorfd=1
+	</select>
+	<!-- 查询所有用户为房客的 -->
+	<select id="getfangke" resultType="User" parameterType="User">
+		select * from users where isfkorfd=0
+	</select>
+	<!-- 添加用户，要返回用户的编号 -->
+	<insert id="saveUsers" parameterType="User" useGeneratedKeys="true" keyProperty="uid">
+		insert into users ( uname,upassword,usex,uidcard,utel,uaccount,isfkorfd,regdate) values(#{uname},#{upassword},#{usex},#{uidcard}
+		<choose>
+			<when test="utel !=null">#{utel}</when>
+			<otherwise>''</otherwise>
+		</choose>
+		,#{uaccount},
+		<choose>
+			<when test="isfkorfd !=null">#{isfkorfd}</when>
+			<otherwise>'0'</otherwise>
+		</choose>
+		,now()
+		)
+	</insert>
+</mapper>
