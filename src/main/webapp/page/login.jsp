@@ -39,7 +39,7 @@
 						
 						
 						</table>
-						<div class="buttons" style=" width:150px;height:30px;margin:0 auto;background:yellow;">
+						<div class="buttons" style=" width:150px;height:30px;text-align:center;margin:0 auto;">
 							<input type="submit" id="User_login_action_0" value="立即登录"/>
 
 							<p value='注册' onclick='document.location="toRegister.action"'>没有账户？立即注册</p>
