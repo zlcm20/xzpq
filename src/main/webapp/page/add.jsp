@@ -261,26 +261,21 @@ tr{
 							</td>
 						</tr>
 
-						<!-- <tr>
-							<td class="field">楼 层：</td>
-							<td><input type="text" name="floor" value=""
-								id="House_add_action_floor" class="text" /></td>
-						</tr> -->
 						<tr>
 							<td class="field">出租面积：</td>
-							<td><input type="text" name="floorage" value=""
+							<td><input type="text" name="hfloorage" value=""
 									   id="House_add_action_floorage" class="text" /></td>
 						</tr>
 						<tr>
 							<td class="field">价 格：</td>
-							<td><input type="text" name="price" value=""
+							<td><input type="text" name=hprice value=""
 									   id="House_add_action_price" class="text" /></td>
 						</tr>
 
 						<tr>
 							<td class="field">联系方式：</td>
-							<td><input type="text" name="contact" value=""
-									   id="House_add_action_contact" class="text" /></td>
+							<td><input type="text" name="utel" value=""
+									   id="House_add_action_utel" class="text" /></td>
 						</tr>
 						<tr>
 							<td class="field">详细信息：</td>

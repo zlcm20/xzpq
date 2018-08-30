@@ -8,9 +8,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </insert>  -->
 		<!-- 添加房屋信息 -->
 		<insert id="saveHouse" parameterType="House" useGeneratedKeys="true" keyProperty="hid">
-				insert into house(pzid,addrid,hname,uid,hprice,hpubdate,hdescription,hfloorage,hsum)
+				insert into house(pzid,addrid,hname,uid,hprice,hpubdate,hdescription,hfloorage,hsum,hcondition)
         values(#{peizhi.pzid},#{addr.addrid},#{hname},#{uid},#{hprice},now(),#{hdescription},#{hfloorage},
-        #{hsum})
+        #{hsum},'待审核')
 		</insert>
 	
 		<!-- 更新房屋信息 -->

@@ -5,12 +5,13 @@
 <%@ include file="header.jsp" %>    
 
 
-	<div id="regLogin" class="wrap">
+	<div id="regLogin" class="wrap" >
 		<div class="dialog">
-			<div class="box">
+			<div class="box" style="width:400px;height:250px; margin:0 auto;background-color:rgba(255,255,255,0.15)
+			    line-height:15px;">
 				<h4>用户登录</h4>
 				<form id="User_login_action" name="User_login_action" action="user_login.action" method="post">
-					<div class="infos">
+					<div >
 						<table class="field">
 							<tr>
 								<td  colspan="2" style="text-align:center; color:red"></td>
@@ -38,7 +39,7 @@
 						
 						
 						</table>
-						<div class="buttons">
+						<div class="buttons" style=" width:150px;height:30px;margin:0 auto;background:yellow;">
 							<input type="submit" id="User_login_action_0" value="立即登录"/>
 
 							<p value='注册' onclick='document.location="toRegister.action"'>没有账户？立即注册</p>

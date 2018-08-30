@@ -104,9 +104,9 @@ a:link, a:visited, a:hover, a:active { color:#3a52a8; text-decoration:underline;
 .dialog .buttons { padding: 0; }
 .dialog .buttons input { margin:0 5px; border:0; }
 .dialog  table{ line-height:40px; }
-.dialog table .field { width:300px; text-align:center;}
+.dialog table .field { width:150px; text-align:center;}
 
-.dialog table input.text { width:300px;height:30px; margin:15px 0; border:1px solid #D1D1D1; padding:4px 6px; }
+.dialog table input.text { width:150px;height:20px; margin:15px 0; border:1px solid #D1D1D1; padding:4px 6px; }
 .dialog table textarea { width:600px; height:180px; margin:7px 0; border:1px solid #D1D1D1; padding:4px 6px; }
 .dialog .msg { padding:50px 0; text-align:center; }
 .dialog table .label { width:120px; text-align:right; }
@@ -132,8 +132,8 @@ a:link, a:visited, a:hover, a:active { color:#3a52a8; text-decoration:underline;
 #view .introduction .content { padding:20px; line-height:30px; font-size:14px; }
 #view .introduction .content p { text-indent:2em; }
 
-#regLogin { margin:20px auto; }
-#regLogin .dialog { width:940px; margin:0 auto; }
+/* #regLogin { margin:20px auto; }
+#regLogin .dialog { width:450px; margin:0 auto; }
 #regLogin .dialog .box { background:#FAEBD7; font-size:14px; }
 #regLogin dl { line-height:30px; font-size:14px; font-weight:bold; border-bottom:3px solid #09C; }
 #regLogin dl dt,
@@ -145,3 +145,4 @@ a:link, a:visited, a:hover, a:active { color:#3a52a8; text-decoration:underline;
 #regLogin .dialog .box .infos { padding:20px 0; }
 #regLogin .dialog .box .buttons input {  width:125px; height:36px; font-size:14px;  color:black; }
 #regLogin .dialog .verycode {border-left:80px; width:130px; }
+ */
