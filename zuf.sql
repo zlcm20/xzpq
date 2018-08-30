@@ -55,6 +55,7 @@ create table house(
 	hsum int,
 	hcondition varchar(20)
 );
+update house set hcondition='已审核'
 alter table house
 add hcondition varchar(20)
 select * from house left join peizhi on house.pzid=peizhi.pzid;
