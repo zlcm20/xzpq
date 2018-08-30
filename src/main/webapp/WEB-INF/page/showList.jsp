@@ -37,6 +37,7 @@ function del(hid,pages){
 		<table class="house-list">
 
 			 <c:forEach items="${ jsonModel.rows}"  var="v">
+			 	<c:if test="${ v.hcondition=='已审核'}">
 				<tr>
 					<td class="house-thumb">
 						<span>
@@ -79,7 +80,7 @@ function del(hid,pages){
 					
 					
 				</tr>
-			
+			</c:if>
 			
 			</c:forEach>
 	</table>		

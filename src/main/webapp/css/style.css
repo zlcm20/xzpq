@@ -127,21 +127,21 @@ a:link, a:visited, a:hover, a:active { color:#3a52a8; text-decoration:underline;
 #view .intro .lefter .houseinfo span { color:#c32218; font-size:14px; font-weight:bold; }
 #view .introduction {}
 #view .introduction h2 { font-size:14px; line-height:30px; border-bottom:1px solid #3a749a; }
-#view .introduction h2 span { display:inline-block; color:#d3faff; background:#FAEBD7; border:1px solid #3a749a; }
+#view .introduction h2 span { display:inline-block; color:#d3faff; background:#3a749a; border:1px solid #3a749a; }
 #view .introduction h2 span strong { display:inline-block; border-top:1px solid #a0f5ff; border-left:1px solid #a0f5ff; border-right:1px solid #a0f5ff; padding:0 12px; }
 #view .introduction .content { padding:20px; line-height:30px; font-size:14px; }
 #view .introduction .content p { text-indent:2em; }
 
 #regLogin { margin:20px auto; }
 #regLogin .dialog { width:940px; margin:0 auto; }
-#regLogin .dialog .box { background:#FAEBD7; font-size:14px; }
+#regLogin .dialog .box { background:#09C; font-size:14px; }
 #regLogin dl { line-height:30px; font-size:14px; font-weight:bold; border-bottom:3px solid #09C; }
 #regLogin dl dt,
 #regLogin dl dd { float:left; }
 #regLogin dl dt { padding-left:10px; padding-right:30px; }
 #regLogin dl dd { padding:0 50px; background:#eee; color:#666; border-left:1px solid #fff; }
 #regLogin dl dd.past { background:#FAEBD7; color:#fff; }
-#regLogin .dialog .box table { width:1000px; }
+#regLogin .dialog .box table { width:450px; }
 #regLogin .dialog .box .infos { padding:20px 0; }
-#regLogin .dialog .box .buttons input { background:url(images/btn_bg.gif); width:125px; height:36px; font-size:14px; font-weight:bold; color:#FAEBD7; }
+#regLogin .dialog .box .buttons input { background-image:url(images/btn_bg.gif); width:125px; height:36px; font-size:14px; font-weight:bold; color:black; }
 #regLogin .dialog .verycode { width:130px; }
