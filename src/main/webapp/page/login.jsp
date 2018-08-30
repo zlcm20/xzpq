@@ -5,7 +5,7 @@
 <%@ include file="header.jsp" %>    
 
 
-	<div id="regLogin" class="wrap" >
+	<div id="regLogin" class="wrap" style="background-image:url(images/1.png);">
 		<div class="dialog">
 			<div class="box" style="width:400px;height:250px; margin:0 auto;background-color:rgba(255,255,255,0.15)
 			    line-height:15px;">
