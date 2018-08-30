@@ -82,9 +82,9 @@ a:link, a:visited, a:hover, a:active { color:#3a52a8; text-decoration:underline;
 
 .house-list { width:100%; }
 .house-list tr.odd td { background:#faf9f6; }
-.house-list td { padding:15px 8px; border-bottom:1px solid #ccc; }
+.house-list td { padding:15px 8px; }
 .house-list td.house-thumb { width:120px; text-align:center; }
-.house-list td.house-thumb span { display:inline-block; border:1px solid #ccc; padding:3px; }
+.house-list td.house-thumb span { display:inline-block;position:relative;}
 .house-list td dl dt { font-size:14px; font-weight:bold; }
 .house-list td.house-type { text-align:center; width:120px; }
 .house-list td.house-price { color:#ff3300; width:120px; text-align:center; }
@@ -100,13 +100,13 @@ a:link, a:visited, a:hover, a:active { color:#3a52a8; text-decoration:underline;
 .dialog { width:1000spx; margin:50px auto; }
 .dialog h4 { margin:5px 20px; font-size:14px; line-height:30px; border-bottom:1px solid #ccc; }
 .dialog .box { border:1px solid #FAEBD7; }
-.dialog .infos { width:960px;padding:10px 20px; color:#000; }
-.dialog .buttons { padding:20px 0; text-align:center; }
+.dialog .infos { width:4500px;padding:10px 20px; color:#000; }
+.dialog .buttons { padding: 0; }
 .dialog .buttons input { margin:0 5px; border:0; }
 .dialog  table{ line-height:40px; }
-.dialog table .field { width:120px; text-align:right;}
+.dialog table .field { width:300px; text-align:center;}
 
-.dialog table input.text { width:100px;height:15px; margin:15px 0; border:1px solid #D1D1D1; padding:4px 6px; }
+.dialog table input.text { width:300px;height:30px; margin:15px 0; border:1px solid #D1D1D1; padding:4px 6px; }
 .dialog table textarea { width:600px; height:180px; margin:7px 0; border:1px solid #D1D1D1; padding:4px 6px; }
 .dialog .msg { padding:50px 0; text-align:center; }
 .dialog table .label { width:120px; text-align:right; }
@@ -133,7 +133,7 @@ a:link, a:visited, a:hover, a:active { color:#3a52a8; text-decoration:underline;
 #view .introduction .content p { text-indent:2em; }
 
 #regLogin { margin:20px auto; }
-#regLogin .dialog { width:240px; margin:0 auto; }
+#regLogin .dialog { width:940px; margin:0 auto; }
 #regLogin .dialog .box { background:#FAEBD7; font-size:14px; }
 #regLogin dl { line-height:30px; font-size:14px; font-weight:bold; border-bottom:3px solid #09C; }
 #regLogin dl dt,

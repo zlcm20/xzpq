@@ -18,13 +18,13 @@
 							<tr>
 								<td class="field">用 户 名：</td>
 								<td>
-									 <input type="text" name="uname" value="" id="uname" class="text" required="true"/>
+									 <input type="text" name="uname" value="a" id="uname" class="text" required="true"/>
 								</td>
 							</tr>
 							<tr>
 								<td class="field">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
 								<td>
-									<input type="password" name="upassword" value="" id="upassword" class="text" required="true"/>
+									<input type="password" name="upassword" value="a" id="upassword" class="text" required="true"/>
 								</td>
 							</tr>
 						 <tr>
