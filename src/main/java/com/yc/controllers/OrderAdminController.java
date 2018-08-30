@@ -123,7 +123,7 @@ public class OrderAdminController {
 	}
 	@RequestMapping("order_back.action")
 	public String house_reserve(){	
-		return "/WEB-INF/page/list";
+		return "/page/list";
 	}
 	
 	

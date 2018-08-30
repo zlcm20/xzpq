@@ -10,14 +10,14 @@ public class IndexController {
 	
 	@RequestMapping(value="/index.action")
 	public String index(){
-		return "/WEB-INF/page/shouye";
+		return "/page/shouye";
 		//return "/WEB-INF/page/login.jsp";
 	}
 	
 	
 	@RequestMapping(value="/toRegister.action")
 	public String toRegister(){
-		return "/WEB-INF/page/register";
+		return "/page/register";
 	}
 }
 

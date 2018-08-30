@@ -54,13 +54,13 @@ public class UserController {
 			user=userBiz.login(user);
 			if(user!=null){
 				session.setAttribute("user", user);
-				mav.setViewName("/WEB-INF/page/list");
+				mav.setViewName("/page/list");
 				return mav;
 			}else{
 				request.setAttribute("errormsg", "账户或密码错误,请重新输入...");
 			}
 		}
-		mav.setViewName("/WEB-INF/page/login");
+		mav.setViewName("/page/login");
 		return mav;
 	}
 	

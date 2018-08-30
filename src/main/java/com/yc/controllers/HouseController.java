@@ -50,12 +50,12 @@ public class HouseController {
 		
 	
 		
-		return "/WEB-INF/page/showList";
+		return "/page/showList";
 	}
 
 	@RequestMapping("/user/house_toAdd.action")
 	public String houseToAdd() {
-		return "/WEB-INF/page/add";
+		return "/page/add";
 	}
 
 	@RequestMapping("/user/house_toUpdate.action")
@@ -76,7 +76,7 @@ public class HouseController {
 				break;
 			}
 		}
-		return "/WEB-INF/page/update";
+		return "/page/update";
 	}
 
 	@RequestMapping("/user/house_doUpdate.action")
@@ -92,7 +92,7 @@ public class HouseController {
 		house.setAddr(addr);
 		house.setPeizhi(peizhi);
 		boolean resulthouse = houseBiz.updateHouse(house);
-		return "/WEB-INF/page/list";
+		return "/page/list";
 		
 	}
 
@@ -106,7 +106,7 @@ public class HouseController {
 		house.setAddr(addr);
 		house.setPeizhi(peizhi);
 		boolean resulthouse = houseBiz.addHouse(house);
-		return "/WEB-INF/page/list";
+		return "/page/list";
 	}
 
 	
@@ -149,13 +149,13 @@ public class HouseController {
 				break;
 			}
 		}
-		return "/WEB-INF/page/show";
+		return "/page/show";
 	}
 
 	
 	@RequestMapping("/house_show.action")
 	public String houseShow() {
-		return "/WEB-INF/page/show";
+		return "/page/show";
 	}
 	
 	
@@ -184,7 +184,7 @@ public class HouseController {
 				break;
 			}
 		}
-		return "/WEB-INF/page/dingdan";
+		return "/page/dingdan";
 	}
 	
 	@RequestMapping("/shenhe.action")
@@ -242,7 +242,7 @@ public class HouseController {
 		
 		request.setAttribute("house", house);
 		
-		return "/WEB-INF/page/reserve";
+		return "/page/reserve";
 
 	}
 	

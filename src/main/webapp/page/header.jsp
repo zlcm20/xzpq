@@ -20,7 +20,7 @@
 %>
 <base href="<%=basePath%>">
 
-<title>青鸟租房 - 用户登录</title>
+<title>小猪短租</title>
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript" src="js/function.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
@@ -31,14 +31,14 @@
 
 
 
-	<div id="header" class="wrap">
+<!-- 	<div id="header" class="wrap">
 		<div id="logo">
 			<img src="images/logo.gif" />
 		</div>
 		
 	</div>
 
-
+ -->
 
 
 
