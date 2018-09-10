@@ -22,4 +22,4 @@
 	src="../jquery-easyui-1.5.4.5/jquery.easyui.min.js"></script>
 	
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="../js/ajaxfileupload2.js"></script>
+

@@ -1,5 +1,6 @@
 package com.yc.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,10 @@ public interface BaseDao<T> {
 	
 	public int update(Class<T> clazz,String sqlId,List<T> list);
 	
+	public void update(Class<T> clazz, String sqlId, Date now);
+
+	public void update(Class<T> clazz, String sqlId, Integer integer);
+	
 	/**
 	 * 删除对象
 	 * @param t  带有参数的待删除对象
@@ -67,6 +72,8 @@ public interface BaseDao<T> {
 	public List<T> findAll(Class<T> clazz,String sqlId);
 	
 	public List<T> findAll(T t,String sqlId);
+	
+	public List<T> findAll(Class<T> clazz, String sqlId, Integer uid);
 	
 	//查集合，条件查询   parameterMap  要查询的条件
 	public List<T> findAll(Class<T> clazz,String sqlId,Map<String,Object> parameterMap);

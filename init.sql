@@ -19,6 +19,11 @@ create table users(
 	isfkorfd int,
 	regdate date
 );
+insert into users( uname,upassword,usex,uidcard,utel,uaccount,isfkorfd,regdate)
+values('yao','a','男','152214199711123027','18373472202','18373472282','1',now() );
+
+insert into users( uname,upassword,usex,uidcard,utel,uaccount,isfkorfd,regdate)
+values('cm','a','男','152214199711123026','18373472202','18373472282','0',now() );
 select * from users;
 /**
  *pzid int,--配置id
@@ -46,7 +51,10 @@ create table house(
 	hpic varchar(100),
 	hfloorage int,
 	hsum int,
-	hcondition varchar(20)
+	hcondition varchar(20),
+	foreign key(uid) references users(uid),
+	foreign key(pzid) references peizhi(pzid),
+	foreign key(addrid) references addr(addrid)
 );
 
 select * from house;
@@ -113,8 +121,15 @@ create table orderadmin(
 	hid int,
 	hindate date,
 	houtdate date,
-	ocondition varchar(20)
+	money double,
+	ocondition varchar(20),
+	foreign key(uid) references users(uid),
+	foreign key(hid) references house(hid)
 );
+insert into orderadmin(uid,hid,hindate,houtdate,money,ocondition)
+values(1,1,'2018-09-10','2018-09-14','12280','已提交订单')
+update orderadmin set uid=2 where oaid=1;
+update orderadmin set	houtdate='2018-09-09' where oaid=1;
 select * from orderadmin;
 
 
@@ -126,7 +141,11 @@ select * from orderadmin;
 --评分表
 create table eval(
 	evid int primary key auto_increment,
+	uid int ,
+	 hid int,
 	evaluate varchar(2000),
-	score int check(score>=1 and score<=5)
-)
-
+	score int check(score>=1 and score<=5),
+	foreign key(uid) references users(uid),
+	foreign key(hid) references house(hid)
+);
+select * from eval

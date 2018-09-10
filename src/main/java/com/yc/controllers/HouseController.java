@@ -1,11 +1,16 @@
 package com.yc.controllers;
 
+import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -13,9 +18,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.sun.org.apache.bcel.internal.generic.DDIV;
 import com.yc.bean.Addr;
 import com.yc.bean.House;
+import com.yc.bean.OrderAdmin;
 import com.yc.bean.Peizhi;
 import com.yc.bean.User;
 import com.yc.biz.AddrBiz;
@@ -35,20 +43,21 @@ public class HouseController {
 
 	@RequestMapping("house_list.action")
 	public String houseList(HttpServletRequest request, HttpSession session,
-			
 			@RequestParam(name = "pages") Integer pages,
 			@RequestParam(name = "pagesize") Integer pagesize) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Integer start = (pages - 1) * pagesize;
 		map.put("start", start);
 		map.put("pages", pages);
-		map.put("pagesize", pagesize);
+		map.put("pagesize", pagesize);	
+		map.put("hcondition", "已审核");
+		if( session.getAttribute("city")!=null){
+		String city=(String) session.getAttribute("city");
+		map.put("city", city);
+		}
 		JsonModel jsonModel = houseBiz.searchHouse(map);
-		                                 
 		request.setAttribute("jsonModel", jsonModel);
 		session.setAttribute("list", jsonModel.getRows());
-		
-	
 		
 		return "/page/showList";
 	}
@@ -70,7 +79,6 @@ public class HouseController {
 		// 查出hid代表 House对象
 		List<House> list = (List<House>) session.getAttribute("list");
 		for (House h : list) {
-			
 			if (h.getHid().intValue() == hid.intValue()) {
 				session.setAttribute("house", h);
 				break;
@@ -84,7 +92,6 @@ public class HouseController {
 			Addr addr,
 			House house,
 			Peizhi peizhi ,HttpServletRequest request) {
-		
 		User user = (User) session.getAttribute("user");
 		boolean resultaddr = addrBiz.updateaddr(addr);
 		boolean resultpeizhi = peizhiBiz.updatepeizhi(peizhi);
@@ -99,6 +106,10 @@ public class HouseController {
 	@RequestMapping("/user/house_doAdd.action")
 	public String houseDoAdd(House house, Addr addr, Peizhi peizhi,
 			HttpSession session) {
+		String[] hpics = house.getHpic().split(" ");
+		String hpic = hpics[2].split("=")[1];
+		hpic = hpic.substring(1, hpic.length()-1);
+		house.setHpic(hpic);
 		User user = (User) session.getAttribute("user");
 		boolean resultaddr = addrBiz.addAddr(addr);
 		boolean resultpeizhi = peizhiBiz.addPeizhi(peizhi);
@@ -106,7 +117,7 @@ public class HouseController {
 		house.setAddr(addr);
 		house.setPeizhi(peizhi);
 		boolean resulthouse = houseBiz.addHouse(house);
-		return "/page/list";
+		return "/page/house";
 	}
 
 	
@@ -132,18 +143,18 @@ public class HouseController {
 	@RequestMapping("/house_detail.action/{hid}")
 	public String houseToShow(@PathVariable Integer hid,
 			HttpSession session, HttpServletRequest request) {
-
+		if(session.getAttribute("user")!=null  &&"".equals(session.getAttribute("user"))){
+			System.out.println("阿斯顿法国会籍考虑");
 		User user = (User) session.getAttribute("user");
+		}
 		House house=houseBiz.getHouseById(hid);
 		Peizhi peizhi=peizhiBiz.getPeizhiById(house.getPzid());
 	    session.setAttribute("peizhi", peizhi);
 	    Addr addr=addrBiz.getAddrById(house.getAddrid());
 	    session.setAttribute("addr", addr);
-	   
 		// 查出hid代表 House对象
 		List<House> list = (List<House>) session.getAttribute("list");
 		for (House h : list) {
-			
 			if (h.getHid().intValue() == hid.intValue()) {
 				session.setAttribute("house", h);
 				break;
@@ -159,33 +170,14 @@ public class HouseController {
 	}
 	
 	
-	//TODO:
-	@RequestMapping("/house_dingdan.action/{hid}")
-	public String houseToDingdan(@PathVariable Integer hid,
-			HttpSession session, HttpServletRequest request) {
-
-		User user = (User) session.getAttribute("user");
-		House house=houseBiz.getHouseById(hid);
-		// System.out.println(house+"-----");
-		// System.out.println(house.getPzid()+"----");
-		Peizhi peizhi=peizhiBiz.getPeizhiById(house.getPzid());
-		//System.out.println(peizhi+"-----");
-	    session.setAttribute("peizhi", peizhi);
-	    Addr addr=addrBiz.getAddrById(house.getAddrid());
-	    //System.out.println(addr+"-----");
-	    session.setAttribute("addr", addr);
-	   
-		// 查出hid代表 House对象
-		List<House> list = (List<House>) session.getAttribute("list");
-		for (House h : list) {
-			
-			if (h.getHid().intValue() == hid.intValue()) {
-				session.setAttribute("house", h);
-				break;
-			}
-		}
-		return "/page/dingdan";
-	}
+//	
+//	@RequestMapping("/house_dingdan.action")
+//	public String houseDingdan(Integer uid,
+//			HttpSession session, HttpServletRequest request) {
+//		//System.out.println("uid:"+uid);
+//		User user = (User) session.getAttribute("user");
+//		return "/page/dingdan";
+//	}
 	
 	@RequestMapping("/shenhe.action")
 	@ResponseBody
@@ -227,23 +219,66 @@ public class HouseController {
 	}
 	
 	
-	/**
-	 * 李子党
-	 */
-@RequestMapping("/house_reserve.action")
 	
-	public String house_reserve(Integer hid,HttpSession session,HttpServletRequest request ){
+    @RequestMapping("/house_reserve.action")
+	public String house_reserve(Integer hid,HttpSession session,HttpServletRequest request ) throws Exception{
 		session.setAttribute("hid", hid);
-		House house=houseBiz.findHouseInfo(hid);//根据hid查询房东和房子的信息
+		Map<String,Object> map=houseBiz.findHouseInfo(hid);//根据hid查询房东和房子的信息
+		House house=(House) map.get("house");
 		
+		List<OrderAdmin> list=(List<OrderAdmin>) map.get("oa");
+		
+		List<Object> dates = new ArrayList<Object>();
+		Date din=null;
+		Date dout = null;
+		Date dio = null;
+		for( OrderAdmin oa:list){
+			din=oa.getHindate();
+			dout = oa.getHoutdate();
+			int days  = dout.getDate() -din.getDate();
+			dates.add("'"+ din +"'");
+			for(int i=1;i<days;i++){
+				din.setDate(din.getDate()+1);
+				dates.add("'"+ din +"'");
+			}
+
 			
-		session.setAttribute("user", house.getUser()	);
-		session.setAttribute("hprice",house.getHprice() );
+		}
+		request.setAttribute("dates", dates);
 		
+		session.setAttribute("hprice",house.getHprice() );
+		session.setAttribute("oalist", list);
 		request.setAttribute("house", house);
 		
 		return "/page/reserve";
 
 	}
+	
+    //筛选城市
+    @RequestMapping("/shaixuan.action")
+	public ModelAndView xianshi(String city,HttpServletRequest request,HttpSession session) {
+    	ModelAndView mav=new ModelAndView();
+    	//System.out.println("444"+city);
+    	if(city!=null){
+    	session.setAttribute("city", city);
+    	}
+    	mav.setViewName("page/list");
+		return mav;
+	}
+    
+
+  	@RequestMapping("/house_personcenter.action")
+  	public String houseToDingdan( Integer uid,
+  			HttpSession session, HttpServletRequest request) {
+  		User user = (User) session.getAttribute("user");
+  		List<House> list=  houseBiz.getHouseAndUser(uid);
+  		for (House house : list) {
+  				session.setAttribute("house", house);
+  			}
+  		return "/page/person";
+  	}
+  	
+  	
+	
 	
 }

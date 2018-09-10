@@ -4,7 +4,7 @@
 
 
 <script type="text/javascript">
-<!--
+
 		$(function(){
 			$("#sub").click(function(){
 				$.ajax({
@@ -13,16 +13,18 @@
 					dataTyep:"JSON",
 					success:function(data){
 						if( data.code==1){
-							$("#result").html("注册成功");
+							alert("注册成功");
+							location.href="page/login.jsp";
 						}else{
 							$("#result").html("注册失败");
+							alert("重新填写信息");
 						}
 					}
 				});
 			});
 			
 		});
-//-->
+
 </script>
 
 
@@ -34,31 +36,41 @@
 			<dd class="past">填写个人信息</dd>
 		</dl>
 		<div class="box">
-			<form id="User_register_action" name="User_register_action" action="page/User_register.action" method="post">
+			<form id="User_register_action" name="User_register_action" action="user_register.action" method="post">
 				<div class="infos">
 					<table class="field">
+			
 						<tr>
 							<td  colspan="2" style="text-align:center; color:red"></td>
 						</tr>
 						<tr>
 							<td class="field">用 户 名：</td>
-							<td><input type="text" class="text" name="username" /></td>
+							<td><input type="text" class="text" name="uname" /></td>
 						</tr>
 						<tr>
 							<td class="field">密　　码：</td>
-							<td><input type="password" class="text" name="password" /></td>
+							<td><input type="password" class="text" name="upassword" /></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td class="field">确认密码：</td>
 							<td><input type="password" class="text" name="repassword" /> </td>
+						</tr> -->
+						<tr>
+							<td class="field">性　　别：</td>
+							<td style="margin-left:20px;"><input type="radio" style="width:5px;" class="text" value="男" name="usex" />男 </td>
+							<td style="margin-left:20px;"><input type="radio" style="width:5px;" class="text" value="女" name="usex" />女 </td>
+						</tr>
+						<tr>
+							<td class="field">身份证号：</td>
+							<td><input type="text" class="text" name="uidcard" /> </td>
 						</tr>
 						<tr>
 							<td class="field">电　　话：</td>
-							<td><input type="text" class="text" name="telphone" /> </td>
+							<td><input type="text" class="text" name="utel" /> </td>
 						</tr>
 						<tr>
-							<td class="field">用户姓名：</td>
-							<td><input type="text" class="text" name="name" /> </td>
+							<td class="field">账　　户：</td>
+							<td><input type="text" class="text" name="uaccount" /> </td>
 						</tr>
 					</table>
 					<div class="buttons">

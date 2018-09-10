@@ -1,7 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ include file="header.jsp"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<base href="<%=basePath%>">
+
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<script type="text/javascript" src="js/function.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+</head>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
 body {
@@ -9,6 +22,7 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: "微软雅黑", Arial, Helvetica, sans-serif;
+	
 }
 
 a {
@@ -90,7 +104,7 @@ tr{
 
 </script>
 
-<div id="regLogin" class="wrap">
+<div id="regLogin" class="wrap" style="background: url(../house/back.jpg);background-size: 100% 100%;">
 	<div class="dialog">
 		<dl class="clearfix">
 			<dt>新房屋信息发布</dt>
@@ -277,9 +291,15 @@ tr{
 							<td><input type="text" name="utel" value=""
 									   id="House_add_action_utel" class="text" /></td>
 						</tr>
-						<tr>
+							<tr>
 							<td class="field">详细信息：</td>
-							<td><textarea class="ckeditor" name="hdescription"></textarea>
+							<td><textarea type="text" name="hdescription"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td class="field">图片：</td>
+							<td><textarea id="hosuepic" class="ckeditor" name="hpic"></textarea>
+							
 							</td>
 						</tr>
 					</table>

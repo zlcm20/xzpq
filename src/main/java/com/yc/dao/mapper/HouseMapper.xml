@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </insert>  -->
 		<!-- 添加房屋信息 -->
 		<insert id="saveHouse" parameterType="House" useGeneratedKeys="true" keyProperty="hid">
-				insert into house(pzid,addrid,hname,uid,hprice,hpubdate,hdescription,hfloorage,hsum,hcondition)
-        values(#{peizhi.pzid},#{addr.addrid},#{hname},#{uid},#{hprice},now(),#{hdescription},#{hfloorage},
+				insert into house(pzid,addrid,hname,uid,hprice,hpubdate,hdescription,hpic,hfloorage,hsum,hcondition)
+        values(#{peizhi.pzid},#{addr.addrid},#{hname},#{uid},#{hprice},now(),#{hdescription},#{hpic},#{hfloorage},
         #{hsum},'待审核')
 		</insert>
 	
@@ -30,28 +30,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<sql id="conditionSql">
 				from house
 				<where>
-						 <if test="title!=null and title!=''">
-								title like '%${title}%'
-						</if> 
-						
-						<if test="minPrice!=null and maxPrice!=null">
-								and (price between #{minPrice} and #{maxPrice})
+						<if test="hcondition!=null and hcondition!=''">
+								and hcondition=#{hcondition}
 						</if>
-						
-						<if test="minfloorage!=null and maxfloorage!=null">
-								and (floorage between #{minfloorage} and #{maxfloorage})
-						</if>
-						<!-- <if test="typeId!=null and typeId!='' ">
-								and type_id=#{typeId}
-						</if> -->
-						
-						<!-- <if test="streetId!=null and streetId!=''">
-								and STREET_ID=#{streetId}
-						</if> -->
-						
 						<if test="hid!=null and hid!=''">
-								and hid=#{hid}
+								and hid=#{hid} 
 						</if>
+						
+					
 				</where>
 		</sql>
 		
@@ -81,8 +67,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   
 		<!-- 带查询条件统计查询 -->
 	 	<select id="findHouseConditionCount" parameterType="map" resultType="int">
-				select count(*) <include refid="conditionSql"/>
+				select count(*) <include refid="conditionSql"/> 
 		</select>
+		
+		
 		
 		<!-- <select id="findAllHouse"  parameterType="map" resultType="Map">
 				select *
@@ -111,6 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							 peizhi.towards
 				   from house left join peizhi on house.pzid=peizhi.pzid
            left join addr on house.addrid=addr.addrid 
+           <include  refid="pageSql" />
 		</select>
 		  <resultMap type="House" id="HouseMapss">
 				<id property="hid" column="hid" /> 
@@ -219,14 +208,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				delete from house where hid=#{hid}
 		</delete>
 		
-		<!-- 根据id删除多条信息 -->
-		<delete id="delMutilHouse" parameterType="House">
-				delete from house where hid in 
-				<foreach collection="list" open="(" close=")" separator="," item="house">
-						#{teg.id}
-				</foreach>
-		</delete>
+	
 
+		<sql id="citySelect">
+				
+				<where>
+						<if test="hcondition!=null and hcondition!=''">
+								 hcondition=#{hcondition}
+						</if>
+						<if test="city!=null and city!=''">
+								and city=#{city} 
+						</if>
+						
+					
+				</where>
+		</sql>
+
+		<select id="findHouseProvinceCount" parameterType="map" resultType="int">
+				select count(*) from house,addr  
+				 <include  refid="citySelect" />  
+				and house.addrid=addr.addrid 
+				 
+		</select>
 
 
 <select id="findAllHouses" parameterType="map" resultMap="HousesMap">
@@ -250,8 +253,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		peizhi.towards
 		from house left join peizhi on house.pzid=peizhi.pzid
 		left join addr on house.addrid=addr.addrid
-		where hcondition=#{hcondition}
-
+		 <include  refid="citySelect" />
+         <include  refid="pageSql" />
 	</select>
 	<resultMap type="House" id="HousesMap">
 		<id property="hid" column="hid" />
@@ -365,5 +368,97 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where hid=#{hid}
 	</select>
 	
+	
+	<!-- 筛选城市 -->
+	<select id="findHouseProvince" parameterType="map" resultMap="Houses">
+				select hid,hname,uid,hprice,hpubdate,hdescription,hpic,hfloorage,hsum,hcondition,
+				       addr.addrid,
+				       addr.province,
+				       addr.city,
+				       addr.town,
+				       addr.xxaddr,
+				       addr.doornumber,
+				       peizhi.pzid,
+							 peizhi.rent,
+						 	 peizhi.bed,
+						 	 peizhi.shi,
+							 peizhi.ting,
+							 peizhi.chu,
+							 peizhi.yangtai,
+							 peizhi.toilet,
+							 peizhi.floor,
+							 peizhi.towards
+				   from house left join peizhi on house.pzid=peizhi.pzid
+           left join addr on house.addrid=addr.addrid 
+           where addr.city=#{city}
+            <include  refid="pageSql" />
+		</select>
+		  <resultMap type="House" id="Houses">
+				<id property="hid" column="hid" /> 
+				<result property="hname" column="hname" />
+				<result property="hprice" column="hprice" />
+				<result property="hpubdate" column="hpubdate" />
+				<result property="hdescription" column="hdescription" />
+				<result property="hpic" column="hpic" />  
+				<result property="hfloorage" column="hfloorage" />  
+				<result property="hsum" column="hsum" /> 
+				<result property="hcondition" column="hcondition" />
+				<result property="addrid" column="addrid" />
+				<result property="pzid" column="pzid" />
+				<result property="uid" column="uid" />  
+				<association property="addr" javaType="Addr">
+					<id property="addrid" column="addrid" />
+					<id property="province" column="province" />
+					<id property="city" column="city" />
+					<id property="town" column="town" />
+					<id property="xxaddr" column="xxaddr" />
+					<id property="doornumber" column="doornumber" />
+				</association> 
+				<association property="peizhi" javaType="Peizhi">
+					<id property="pzid" column="pzid" />
+					<id property="rent" column="rent" />
+					<id property="bed" column="bed" />
+					<id property="shi" column="shi" />
+					<id property="ting" column="ting" />
+					<id property="chu" column="chu" />
+					<id property="yangtai" column="yangtai" />
+					<id property="toilet" column="toilet" />
+					<id property="floor" column="floor" />
+					<id property="towards" column="towards" />
+				</association>
+	   </resultMap> 
+	
+	
+	 <select id="findHouseAndUser" parameterType="map" resultMap="HouseMap2">
+			select  house.hname,house.uid,
+			        house.hid,
+			        house.hprice,
+			        house.hpubdate,
+			        house.hdescription,
+			        house.hpic,
+			        house.hfloorage,
+			        house.hsum,
+			        house.hcondition,
+				      users.uid,users.uname from users
+						  left join house 
+						  on house.uid=users.uid
+						  where users.uid=#{uid}
+		</select>
+		 <resultMap type="House" id="HouseMap2">
+				<id property="hid" column="hid" /> 
+				<result property="hname" column="hname" />
+				<result property="hprice" column="hprice" />
+				<result property="hpubdate" column="hpubdate" />
+				<result property="hdescription" column="hdescription" />
+				<result property="hpic" column="hpic" />  
+				<result property="hfloorage" column="hfloorage" />  
+				<result property="hsum" column="hsum" /> 
+				<result property="hcondition" column="hcondition" />
+				<result property="uid" column="uid" />  
+				<association property="user" javaType="User">
+					<id property="uid" column="uid" />
+					<id property="uname" column="uname" />
+				</association>
+	   </resultMap> 
 
 </mapper>

@@ -41,4 +41,20 @@ public interface UserBiz {
 	 * @return
 	 */
 	public List<User> selectfk(User user);
+	
+	/**
+	 * 房客变成房东
+	 * @param user
+	 * @return
+	 */
+	public boolean chance(User user);
+	
+	List<User> getByUid(Integer uid);
+	/**
+	 * 更改密码查用户
+	 * @param id
+	 * @return
+	 */
+	public boolean updateUser(User user);
+	
 }

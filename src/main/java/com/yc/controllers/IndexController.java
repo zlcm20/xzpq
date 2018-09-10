@@ -10,8 +10,7 @@ public class IndexController {
 	
 	@RequestMapping(value="/index.action")
 	public String index(){
-		return "/page/shouye";
-		//return "/WEB-INF/page/login.jsp";
+		return "/page/login";
 	}
 	
 	

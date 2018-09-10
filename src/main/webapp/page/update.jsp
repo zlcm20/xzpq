@@ -1,7 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ include file="header.jsp" %> 
+
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<base href="<%=basePath%>">
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<script type="text/javascript" src="js/function.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+</head>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div id="regLogin" class="wrap">
@@ -65,13 +77,13 @@
 							<td class="field">房屋户型：</td>
 							<td>
 							  <select class="text" name="rent" id="rent">
-								    <option value="${peizhi.pzid }">${peizhi.rent }</option>
+								    <option value="${peizhi.rent }">${peizhi.rent }</option>
 										<option value ="整套出租">整套出租</option>
 										<option value ="独立单间">独立单间</option>
 										<option value ="合住房间">合住房间</option>
 								 </select>室
 								<select class="text" name="shi" id="shi">
-								    <option value="${peizhi.pzid }">${peizhi.shi }</option>
+								    <option value="${peizhi.shi }">${peizhi.shi }</option>
 										<option value ="1">1</option>
 										<option value ="2">2</option>
 										<option value ="3">3</option>
@@ -79,7 +91,7 @@
 										<option value ="5">5</option>
 								 </select>室
 								<select class="text" name="ting" id="ting" >
-								    <option value="${peizhi.pzid }">${peizhi.ting }</option>
+								    <option value="${peizhi.ting }">${peizhi.ting }</option>
 										<option value ="1">1</option>
 										<option value ="2">2</option>
 										<option value ="3">3</option>
@@ -87,7 +99,7 @@
 										<option value ="5">5</option>
 								</select> 厅
 								<select class="text" name="toilet" id="toilet" >
-								    <option value="${peizhi.pzid }">${peizhi.toilet }</option>
+								    <option value="${peizhi.toilet }">${peizhi.toilet }</option>
 								    <option value ="0">0</option>
 										<option value ="1">1</option>
 										<option value ="2">2</option>
@@ -96,7 +108,7 @@
 										<option value ="5">5</option>
 								</select> 卫
 								<select class="text" name="chu" id="chu">
-									  <option value="${peizhi.pzid }">${peizhi.chu }</option>
+									  <option value="${peizhi.chu }">${peizhi.chu }</option>
 								    <option value ="0">0</option>
 										<option value ="1">1</option>
 										<option value ="2">2</option>
@@ -105,7 +117,7 @@
 										<option value ="5">5</option>
 								</select> 厨
 								<select class="text" name="yangtai" id="yangtai">
-										<option value="${peizhi.pzid }">${peizhi.yangtai }</option>								
+										<option value="${peizhi.yangtai }">${peizhi.yangtai }</option>								
 										<option value ="0">0</option>
 										<option value ="1">1</option>
 										<option value ="2">2</option>
@@ -114,7 +126,7 @@
 										<option value ="5">5</option>
 								</select> 阳台
 							  <select class="text" name="bed" id="bed" >
-							      <option value="${peizhi.pzid }">${peizhi.bed }</option>
+							      <option value="${peizhi.bed }">${peizhi.bed }</option>
 							  		<option value ="单人床">单人床</option>
 										<option value ="双人床">双人床</option>
 										<option value ="双层床">双层床</option>
@@ -123,7 +135,7 @@
 										<option value ="其他">其他</option>
 							  </select> 床铺信息
 							  <select class="text" name="hsum" id="hsum">
-										<option value="${house.hid }">${house.hsum }</option>								
+										<option value="${house.hsum }">${house.hsum }</option>								
 										<option value ="0">0</option>
 										<option value ="1">1</option>
 										<option value ="2">2</option>
@@ -138,7 +150,7 @@
 								</select> 宜居人数
 								
 								<select class="text" name="towards" id="towards">
-										<option value="${peizhi.pzid }">${peizhi.towards }</option>							
+										<option value="${peizhi.towards }">${peizhi.towards }</option>							
 										<option value ="东">东</option>
 										<option value ="南">南</option>
 										<option value ="西">西</option>
@@ -149,7 +161,7 @@
 										<option value ="西北">西北</option>
 								</select> 朝 向
 								<select class="text" name="floor" id="floor">
-										<option value="${peizhi.pzid }">${peizhi.floor }</option>								
+										<option value="${peizhi.floor }">${peizhi.floor }</option>								
 										<option value ="0">0</option>
 										<option value ="1">1</option>
 										<option value ="2">2</option>

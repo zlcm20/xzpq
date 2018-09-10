@@ -19,25 +19,25 @@
 			columns:[[
 			     {field:'oaid',title:'订单编号',width:60},
 			     {field:'user.uid',title:'房东id',width:60,formatter:function(value,row,index){
-	                    return row.house.user.uid;
+	                    return row.user.uid;
 				  		}},
-			     {field:'uname',title:'房东姓名',width:60,formatter:function(value,row,index){
-	                    return row.house.user.uname;
+			     {field:'user.uname',title:'房东姓名',width:60,formatter:function(value,row,index){
+	                    return row.user.uname;
 				  		}},
-				 {field:'usex',title:'性别',width:30,formatter:function(value,row,index){
-		                    return row.house.user.usex;
+				 {field:'user.usex',title:'性别',width:30,formatter:function(value,row,index){
+		                    return row.user.usex;
 					  		}},
-				 {field:'uidcard',title:'身份证号',width:60,formatter:function(value,row,index){
-			                return row.house.user.uidcard;
+				 {field:'user.uidcard',title:'身份证号',width:60,formatter:function(value,row,index){
+			                return row.user.uidcard;
 						  	}},
-				 {field:'utel',title:'电话',width:60,formatter:function(value,row,index){
-				            return row.house.user.utel;
+				 {field:'user.utel',title:'电话',width:60,formatter:function(value,row,index){
+				            return row.user.utel;
 							}},
-				 {field:'uaccount',title:'账户',width:60,formatter:function(value,row,index){
-			                return row.house.user.uaccount;
+				 {field:'user.uaccount',title:'账户',width:60,formatter:function(value,row,index){
+			                return row.user.uaccount;
 						  	}},
-				 {field:'regdate',title:'注册时间',width:60,formatter:function(value,row,index){
-				            return row.house.user.regdate;
+				 {field:'user.regdate',title:'注册时间',width:60,formatter:function(value,row,index){
+				            return row.user.regdate;
 							}},
 			     {field:'hid',title:'房子id',width:60}, 
 			  	 {field:'addrid',title:'地址id',width:60,formatter:function(value,row,index){

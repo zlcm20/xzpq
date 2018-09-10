@@ -3,16 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yc.dao.mapper.UserMapper">
-<!-- 	
-	uid int primary key auto_increment,
-	uname  varchar(20),
-	upassword varchar(40),
-	usex varchar(2) default '男'check(fksex in('男','女')),
-	uidcard varchar(18) unique,
-	utel varchar(11),
-	uaccount varchar(50),
-	isfkorfd int
-	 -->
+
 	<!-- 查是否用户存在 -->
 	<select id="isUsersExist" resultType="Integer" parameterType="User">
 		select count(1) from users where uname=#{uname}
@@ -20,13 +11,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 根据用户名和密码查询用户 -->
 	<select id="getUsersByLogin" resultType="User" parameterType="User">
-		select * from users where (uname=#{uname} or utel=#{utel}) and upassword=#{upassword}
+		select * from users where uname=#{uname} and upassword=#{upassword}
 	</select>
 	
-	<!-- 根据id查询用户 -->
+	<update id="updatefk" parameterType="User">
+				update users set 
+				isfkorfd=1
+				where uid=#{uid}
+		</update>
+	
+	<!--  根据id查询用户 -->
 	<select id="getUsers" resultType="User" parameterType="User">
 		select * from users where uid=#{uid}
 	</select>
+	 
 		<!-- 查询所有用户为房东的 -->
 	<select id="getfangdong" resultType="User" parameterType="User">
 		select * from users where isfkorfd=1
@@ -37,11 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 添加用户，要返回用户的编号 -->
 	<insert id="saveUsers" parameterType="User" useGeneratedKeys="true" keyProperty="uid">
-		insert into users ( uname,upassword,usex,uidcard,utel,uaccount,isfkorfd,regdate) values(#{uname},#{upassword},#{usex},#{uidcard}
+		insert into users ( uname,upassword,usex,uidcard,utel,uaccount,isfkorfd,regdate) values(#{uname},#{upassword},#{usex},#{uidcard},
 		<choose>
 			<when test="utel !=null">#{utel}</when>
 			<otherwise>''</otherwise>
 		</choose>
+		
 		,#{uaccount},
 		<choose>
 			<when test="isfkorfd !=null">#{isfkorfd}</when>
@@ -50,4 +49,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		,now()
 		)
 	</insert>
+	
+	
+	
+	
+	 <select id="findByUid" parameterType="map" resultMap="UserMap">
+			select  users.uid,users.uname,
+						  house.hname,house.uid,
+			        house.hid,
+			        house.hprice,
+			        house.hpubdate,
+			        house.hdescription,
+			        house.hpic,
+			        house.hfloorage,
+			        house.hsum,
+			        house.hcondition
+				      from users
+						  right join house 
+						  on house.uid=users.uid
+						  where users.uid=#{uid}
+		</select>
+		 <resultMap type="User" id="UserMap">
+		   	<id property="uid" column="uid" />
+		 		<result property="uname" column="uname" />
+				<association property="house" javaType="House">
+				<id property="hid" column="hid" /> 
+				<result property="hname" column="hname" />
+				<result property="hprice" column="hprice" />
+				<result property="hpubdate" column="hpubdate" />
+				<result property="hdescription" column="hdescription" />
+				<result property="hpic" column="hpic" />  
+				<result property="hfloorage" column="hfloorage" />  
+				<result property="hsum" column="hsum" /> 
+				<result property="hcondition" column="hcondition" />
+				<result property="uid" column="uid" />  
+				</association>
+	   </resultMap> 
+	   
+	   <!-- 根据id修改用户 -->
+	<select id="changeUsers" resultType="User" parameterType="User">
+		update  users  set upassword=#{upassword}  where  uid=#{uid}
+	</select> 
 </mapper>

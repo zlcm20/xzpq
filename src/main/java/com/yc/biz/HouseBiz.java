@@ -30,7 +30,8 @@ public interface HouseBiz {
 	
 	public JsonModel<House> getAllHouse(Map<String,Object>map);
 	
-	
+	//筛选城市
+	public JsonModel<House> getHouseProvince(Map<String, Object> map);
 	
 	
 	public House getHouseById(Integer hid);
@@ -47,10 +48,10 @@ public interface HouseBiz {
 	/**
 	 * 李子党
 	 */
-	public House findHouseInfo(Integer hid);
+	public Map<String,Object> findHouseInfo(Integer hid);
 	
-	
-	
+	//个人信息
+	List<House> getHouseAndUser(Integer uid);
 	
 	
 	

@@ -15,7 +15,11 @@
 <script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript">
 function reserve(hid){
-    location.href="house_reserve.action?hid="+hid;
+		location.href="house_reserve.action?hid="+hid;
+}
+
+function tishi(){
+	alert("请先到首页登录或者注册");
 }
 </script>
 <style type="text/css">
@@ -188,7 +192,7 @@ form input {
 
 .wrapper2 {
 	width: 30%;
-	height: 1000px;
+	height: 800 px;
 	background-color: antiquewhite;
 	margin: 0 auto;
 	float: right;
@@ -296,24 +300,21 @@ form input {
 		<div class="wrapper">
 			<div class="heading">
 				<div class="heading_nav">
-					<div class="heading_title">第一间房</div>
+					<div class="heading_title" style="margin-top: -5px;margin-left: 15px;">${house.hname }&nbsp;&nbsp;&nbsp;&nbsp;     </div>
 					<div class="heading_navbar">
 						<ul>
-							<li><a href="#">hname:${house.hname }</a></li>
-							<li><a href="#">xxaddr:${addr.xxaddr }</a></li>
-							<li><a href="#">doornumber:${addr.doornumber }</a></li>
-							<li><a href="#">VIP会员</a></li>
+							<li><a href="#">详细地址:${addr.xxaddr }</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><a href="#">门牌号:${addr.doornumber }</a></li>
 						</ul>
 					</div>
 
 
 				</div>
 			</div>
-			<div class="body">
+			<div class="body" style="width:100%">
 				<div class="body_title">
 					<h3>${house.hname }</h3>
 					<p>${addr.province }>${addr.city }>${addr.town }>${addr.xxaddr }</p>
-					<p>速定</p>
 				</div>
 
 			</div>
@@ -322,15 +323,12 @@ form input {
 
 			<div class="pic">
 				<div class="body_title2">
-					<h3>hname</h3>
-
-
-
-
+					<h3>${house.hname }</h3>
+					<img alt="" src="${house.hpic }" style="height:480px; width:100%" />
 				</div>
 			</div>
 
-			<div class="xiangqing">
+			<div class="xiangqing" style="width:877px;">
 				<div class="xq1" style="border-right: 1px solid #000;">
 					<h3>${peizhi.rent }</h3>
 					<p>房屋面积：${house.hfloorage }平米</p>
@@ -341,7 +339,14 @@ form input {
 					<h3>宜住${house.hsum }人</h3>
 				</div>
 				<div class="xq3">
-					<h3>${peizhi.bed }</h3>
+					<h3>
+						<c:if test="${peizhi.bed==1 }">单人床</c:if>
+						<c:if test="${peizhi.bed==2 }">双人床</c:if>
+						<c:if test="${peizhi.bed==3 }">双层床</c:if>
+						<c:if test="${peizhi.bed==4 }">沙发床</c:if>
+						<c:if test="${peizhi.bed==5 }">榻榻米</c:if>
+						<c:if test="${peizhi.bed==6 }">其他</c:if>
+					</h3>
 				</div>
 			</div>
 
@@ -362,28 +367,26 @@ form input {
 		<div class="wrapper2">
 			<div class="heading2">
 				<div class="heading_nav2">
-					<div class="heading_title2">第一间房</div>
-					<div class="heading_navbar2">
+					<div class="heading_navbar2" style="margin-left: 150px;">
 						<ul>
-							<li><a href="#">首页</a></li>
-							<li><a href="#">职业课程</a></li>
-							<li><a href="#">技术问答</a></li>
-							<li><a href="#">VIP会员</a></li>
+							<li><a href="page/login.jsp">首页</a></li>
+							<li><a href="page/list.jsp">返回上一页</a></li>
+							<li><a onclick='document.location="/user_logout.action"' style="cursor: pointer;">账户退出</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="body">
+			<%-- <div class="body" sty>
 				<div class="body_title2">
-					<h3>hname</h3>
-					<p>xxaddr</p>
-					<p>doornumber</p>
+					<h3>hname:${house.hname }</h3>
+					<p>xxaddr: ${addr.xxaddr }</p>
+					<p>doornumber:${addr.doornumber }</p>
 				</div>
 				<hr />
 				<hr />
-			</div>
+			</div> --%>
 
-			<div class="pic2">
+			<div class="pic2" style="margin-top:162px;">
 				<div class="body_title2" style="margin: 20px 10px 20px 30px;">
 					¥<span style="font-size: 50px">${house.hprice }</span><em>起</em>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -391,9 +394,10 @@ form input {
 				</div>
 
 				<div class="body_title2">
-					<h3>hname</h3>
-
-					<div class="infos" style="margin: 20px 0px 20px 0px;">
+					<h3>${house.hname }</h3>
+					<img alt="" src="${house.hpic }" style="height:281px; width:100%" />
+					
+					<!-- <div class="infos" style="margin: 20px 0px 20px 0px;">
 						<table class="field">
 							<tr>
 
@@ -410,27 +414,38 @@ form input {
 									class="Wdate" /></td>
 							</tr>
 						</table>
-					</div>
+					</div> -->
 
 				</div>
-
+			<c:if test="${user==null || user==''}">
 				<div class="body_title2">
 					<label class="ui-green"> <input
-						onclick="reserve(${house.hid})" type="button" name="search"
-						style="width: 370px; height: 50px; background-color: pink;"
+						onclick="tishi()" type="button" name="search"
+						style="width: 100%;margin-top:10px; height: 50px; background-color: pink;"
 						value="立即预定" />
 					</label>
 				</div>
-
-				<div class="body_title2" style="margin: 20px 10px 20px 30px;">
-					<h3>${user.uname }</h3>
-					<p>${user.usex }</p>
-					<p>${user.utel}</p>
-					<p>${user.uaccount }</p>
+				
+		</c:if>
+				<c:if test="${user!=null && user!=''}">
+				
+					<div class="body_title2">
+					<label class="ui-green"> <input
+						onclick="reserve(${house.hid})" type="button" name="search"
+						style="width:100%; height: 50px;margin-top:10px; background-color: pink;"
+						value="立即预定" />
+					</label>
 				</div>
-
-
-			</div>
+					<div class="body_title2" style="margin: 60px 10px 20px 30px;">
+						<h3>${user.uname }</h3>
+						<p>性别：${user.usex }</p>
+						<p>电话：${user.utel}</p>
+						<p>账户：${user.uaccount}</p>
+						<p>证件号：${user.uidcard}</p>
+					</div>
+	
+				</c:if>
+		 </div>
 		</div>
 
 	</div>

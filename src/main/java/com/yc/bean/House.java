@@ -115,6 +115,7 @@ public class House implements Serializable {
 		DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 		this.hpubdate=new Date(df.parse(this.hpubdateString).getTime());
 		return this.hpubdate;
+		
 	}
 
 

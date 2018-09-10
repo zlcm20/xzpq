@@ -17,13 +17,18 @@ public class JsonModel<T> implements Serializable {
 	private Integer pagesize;//每页几条
 	private List<T> rows;//记录集合
 	
+	private String beginDate;
+
 	
 
-	public JsonModel(int code, String msg, Object obj) {
+
+
+	public JsonModel(int code, String msg, Object obj, String beginDate) {
 		super();
 		this.code = code;
 		this.msg = msg;
 		this.obj = obj;
+		this.beginDate = beginDate;
 	}
 
 
@@ -124,7 +129,20 @@ public class JsonModel<T> implements Serializable {
 	public String toString() {
 		return "JsonModel [code=" + code + ", msg=" + msg + ", obj=" + obj
 				+ ", total=" + total + ", pages=" + pages + ", pagesize="
-				+ pagesize + ", rows=" + rows + "]";
+				+ pagesize + ", rows=" + rows + ", beginDate=" + beginDate
+				+ "]";
+	}
+
+
+
+	public String getBeginDate() {
+		return beginDate;
+	}
+
+
+
+	public void setBeginDate(String beginDate) {
+		this.beginDate = beginDate;
 	}
 
 

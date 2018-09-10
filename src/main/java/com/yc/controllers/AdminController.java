@@ -1,8 +1,9 @@
 package com.yc.controllers;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,18 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 
-import com.yc.bean.Admin;
-import com.yc.bean.House;
-import com.yc.biz.AdminBiz;
 
+
+
+import com.yc.bean.Admin;
+import com.yc.biz.AdminBiz;
 import com.yc.utils.JsonModel;
 
 
@@ -50,11 +50,14 @@ public class AdminController {
 	}
 		
 	@RequestMapping(value="adminlogin.action")
-	public ModelAndView login(Admin admin,HttpServletRequest request,HttpSession session){
+	public ModelAndView login(Admin admin,HttpServletResponse response,HttpServletRequest request,HttpSession session) throws Exception{
 		ModelAndView mav=new ModelAndView();
 		String zccode=request.getParameter("zccode");
 		String rand=session.getAttribute("rand").toString();
+	    response.setCharacterEncoding("UTF-8");
 		if(!rand.equals(zccode)){
+			
+			
 			request.setAttribute("errormsg", "验证码错误");
 		}else{
 			admin=adminBiz.login(admin);
@@ -85,8 +88,6 @@ public class AdminController {
 		map.put("order", order);
 		map.put("orderway", orderway);
 		JsonModel<Admin> jsonModel=adminBiz.getAdminByPages(map);
-//		Gson g = new Gson();
-//		String jsonString = g.toJson(jsonModel);
 		return jsonModel;
 	}
 	

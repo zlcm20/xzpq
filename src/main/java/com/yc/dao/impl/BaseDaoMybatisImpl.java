@@ -1,7 +1,9 @@
 package com.yc.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 
 
 
@@ -61,6 +63,18 @@ public class BaseDaoMybatisImpl<T> implements BaseDao<T> {
 	}
 
 	@Override
+	public void update(Class<T> clazz, String sqlId, Date now) {
+		sqlSession.update(mapperPath+clazz.getSimpleName()+"Mapper."+sqlId,now);	
+	}
+
+	@Override
+	public void update(Class<T> clazz, String sqlId, Integer integer) {
+		sqlSession.update(mapperPath+clazz.getSimpleName()+"Mapper."+sqlId,integer);
+		
+	}
+	
+	
+	@Override
 	public int del(Class<T> clazz, String id, String sqlId) {
 		return sqlSession.delete(mapperPath+clazz.getSimpleName()+"Mapper."+sqlId,id);
 	}
@@ -88,6 +102,12 @@ public class BaseDaoMybatisImpl<T> implements BaseDao<T> {
 	@Override
 	public List<T> findAll(T t, String sqlId) {
 		return sqlSession.selectList(mapperPath+t.getClass().getSimpleName()+"Mapper."+sqlId,t);
+	}
+	
+	@Override
+	public List<T> findAll(Class<T> clazz, String sqlId,Integer uid) {
+		return sqlSession.selectList(mapperPath+clazz.getSimpleName()+"Mapper."+sqlId,uid);
+		
 	}
 	
 	@Override

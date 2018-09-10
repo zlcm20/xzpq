@@ -51,39 +51,11 @@
 		</association>
 		
 	</resultMap>
-	<resultMap type="OrderAdmin" id="orderAdminMap1">
-		<id property="oaid" column="oaid" />
-		<result property="hid" column="hid" />
-		<result property="hindate" column="hindate" />
-		<result property="houtdate" column="houtdate" />
-		<result property="ocondition" column="ocondition" />
-
-		<association property="house"  javaType="House">
-			<id property="hid" column="hid" />
-			<result property="pzid" column="pzid" />
-			<result property="addrid" column="addrid" />
-			<result property="hname" column="hname" />
-			<result property="uid" column="uid" />
-			<result property="hprice" column="hprice" />
-			<result property="hpubdate" column="hpubdate" />
-			<result property="hdescription" column="hdescription" />
-			<result property="hpic" column="hpic" />
-			<result property="hfloorage" column="hfloorage" />
-			<result property="hsum" column="hsum" />
-			
-			<association property="user"  javaType="User">
-				<id property="uid" column="uid" />
-				<result property="uname" column="uname" />
-				<result property="usex" column="usex" />
-				<result property="uidcard" column="uidcard" />
-				<result property="utel" column="utel" />
-				<result property="uaccount" column="uaccount" />
-				<result property="isfkorfd" column="isfkorfd" />
-				<result property="regdate" column="regdate" />
-			</association>
-		</association>
-		
-	</resultMap>
+	
+	
+	
+	
+	
 	<resultMap type="OrderAdmin" id="orderAdminMap2">
 		<id property="oaid" column="oaid" />
 		<result property="hid" column="hid" />
@@ -128,6 +100,43 @@
  		left join house on orderadmin.hid = house.hid
  		left join users  on house.uid = users.uid 
 	</select>
+	<resultMap type="OrderAdmin" id="orderAdminMap1">
+		<id property="oaid" column="oaid" />
+		<result property="uid" column="uid" />
+		<result property="hid" column="hid" />
+		<result property="hindate" column="hindate" />
+		<result property="houtdate" column="houtdate" />
+		<result property="ocondition" column="ocondition" />
+
+		<association property="house"  javaType="House">
+			<id property="hid" column="hid" />
+			<result property="pzid" column="pzid" />
+			<result property="addrid" column="addrid" />
+			<result property="hname" column="hname" />
+			<result property="uid" column="uid" />
+			<result property="hprice" column="hprice" />
+			<result property="hpubdate" column="hpubdate" />
+			<result property="hdescription" column="hdescription" />
+			<result property="hpic" column="hpic" />
+			<result property="hfloorage" column="hfloorage" />
+			<result property="hsum" column="hsum" />
+			
+			
+		</association>
+		<association property="user"  javaType="User">
+				<id property="uid" column="uid" />
+				<result property="uname" column="uname" />
+				<result property="usex" column="usex" />
+				<result property="uidcard" column="uidcard" />
+				<result property="utel" column="utel" />
+				<result property="uaccount" column="uaccount" />
+				<result property="isfkorfd" column="isfkorfd" />
+				<result property="regdate" column="regdate" />
+			</association>
+	</resultMap>
+	
+	
+	
 	
 	<select id="getFkOrderInfo" resultMap="orderAdminMap2">
 		select oaid,orderadmin.hid,hindate,houtdate,ocondition,
@@ -223,4 +232,114 @@
 		insert into orderadmin(uid,hid,hindate,houtdate,ocondition,money) values(#{uid},#{hid},#{hindate},#{houtdate},#{ocondition},#{money})
 		 
 	</insert>
+	
+	
+	<resultMap type="OrderAdmin" id="OrderMap2">
+		<result property="oaid" column="oaid" />
+		<result property="uid" column="uid" />
+		<result property="hid" column="hid" />
+		<result property="hindate" column="hindate" />
+		<result property="houtdate" column="houtdate" />
+		<result property="money" column="money" />
+		<result property="ocondition" column="ocondition" />
+		
+		<association property="user" javaType="User">
+		      <id property="uid" column="uid" />
+		      <result property="uname" column="uname" />
+		      <result property="upassword" column="upassword" />
+		      <result property="usex" column="usex" />
+		      <result property="uidcard" column="uidcard" />
+		      <result property="uidcard" column="uidcard" />
+		      <result property="utel" column="utel" />
+		      <result property="uaccount" column="uaccount" />
+		      <result property="isfkorfd" column="isfkorfd" />
+		      <result property="regdate" column="regdate" />     
+		</association>
+		
+		<collection  property="house" javaType="House"> 
+            <id property="hid" column="hid" />
+			<result property="pzid" column="pzid" />
+			<result property="addrid" column="addrid" />
+			<result property="hname" column="hname" />
+			<result property="uid" column="uid" />
+			<result property="hprice" column="hprice" />
+			<result property="hpubdate" column="hpubdate" />
+			<result property="hdescription" column="hdescription" />
+			<result property="hpic" column="hpic" />
+			<result property="hfloorage" column="hfloorage" />
+			<result property="hsum" column="hsum" />
+			<result property="hcondition" column="hcondition" />
+		</collection>
+		
+		
+		
+	</resultMap>
+	
+    <!-- 根据uid查询orderAdmin house users 三张表中的所有信息 -->
+	<select id="findOrderInfo" resultMap="OrderMap2" parameterType="Integer">
+		select orderadmin.oaid,
+			   orderadmin.uid,
+			   orderadmin.hid,
+			   hindate,
+			   houtdate,
+			   money,
+			   ocondition,
+			   hname,
+			   hprice,
+			   users.uid,
+			   uname,
+			   utel
+			   
+		 from  orderadmin
+		left join house on orderadmin.hid=house.hid 
+		left join users on house.uid=users.uid where orderadmin.uid=#{uid}
+	</select>
+	
+	
+	 <!-- 更新订单的状态 -->			
+	<update id="updateorder" parameterType="Date" >
+     update orderadmin set ocondition="已完成" where houtdate=#{nowdate} 
+    </update>
+    
+    <update id="updateorder1" parameterType="Integer">
+     update orderadmin set ocondition="已评论"  where oaid=#{oaid}
+    </update>
+	
+	
+	
+	
+		<resultMap type="OrderAdmin" id="OrderMap3">
+			<result property="oaid" column="oaid" />
+			<result property="uid" column="uid" />
+			<result property="hid" column="hid" />
+			<result property="hindate" column="hindate" />
+			<result property="houtdate" column="houtdate" />
+			<result property="money" column="money" />
+			<result property="ocondition" column="ocondition" />
+		
+			
+			<collection  property="house" javaType="House"> 
+	            <id property="hid" column="hid" />
+				
+			</collection>
+			
+			
+			
+	</resultMap>
+	
+    <!-- 根据uid查询orderAdmin house users 三张表中的所有信息 -->
+	<select id="findDate" resultMap="OrderMap3" parameterType="Integer">
+		select orderadmin.oaid,
+			   orderadmin.uid,
+			   orderadmin.hid,
+			   hindate,
+			   houtdate,
+			   money,
+			   ocondition,
+			   house.hid
+		       from  house
+		       left join orderadmin on house.hid=orderadmin.hid where houtdate>=now() and house.hid=#{hid}
+	</select>
+	
+	
 </mapper>

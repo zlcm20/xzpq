@@ -24,7 +24,6 @@ public class AddrController {
 	public JsonModel  houseList( HttpServletRequest request, HttpSession session){
 		List<Addr> addrlist=addrBiz.getAddrList();
 	     session.setAttribute("addrlist", addrlist);
-		
 		//System.out.println(houseTypeList);
 		JsonModel jm=new JsonModel();
 		jm.setCode(1);

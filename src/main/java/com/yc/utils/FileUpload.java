@@ -62,10 +62,11 @@ public class FileUpload {
 				Calendar c=Calendar.getInstance();
 				String tomcatdir=request.getRealPath("/");
 				File tomcatFile=new File(tomcatdir);
-				File webappath=tomcatFile.getParentFile();
+				File webappath = tomcatFile;
+				//File webappath=tomcatFile.getParentFile();
 				
 				File picpath=new File(webappath,"pic"+File.separator+c.get(Calendar.YEAR)+File.separator+(c.get(Calendar.MONTH)+1)+File.separator);
-				String weburl="../pic/"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/";
+				String weburl="pic/"+c.get(Calendar.YEAR)+"/"+(c.get(Calendar.MONTH)+1)+"/";
 				if(picpath.exists() == false){
 					picpath.mkdirs();
 				}

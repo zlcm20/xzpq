@@ -1,5 +1,6 @@
 package com.yc.biz;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -62,9 +63,16 @@ public interface OrderAdminBiz {
 	 public boolean add(OrderAdmin orderAdmin);
 	   
 	   //计算日期之间的天数
-	   public Integer between_days(Date beginDate,Date endDate);
+	   public Integer between_days(Integer hid,Date beginDate,Date endDate);
 	   
 	   //判断日期是否符合格式
 	   
 	   public boolean DateType(OrderAdmin orderAdmin);
+	   
+       //根据uid查订单的所有信息
+	   public List<OrderAdmin> FindAllInfoByUid(Integer uid);
+	   //判断是否订单到期
+	   public void isTime() throws ParseException;
+	   //改变订单状态为已评论
+	   public void changeCondition(Integer integer);
 }
